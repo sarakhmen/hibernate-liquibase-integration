@@ -1,0 +1,73 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-roles
+      author: mateacademy
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: role
+                  value: ADMIN
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: role
+                  value: USER
+  - changeSet:
+      id: insert-users
+      author: mateacademy
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: admin@example.com
+              - column:
+                  name: password
+                  value: qwerty123
+              - column:
+                  name: first_name
+                  value: admin
+              - column:
+                  name: last_name
+                  value: admin
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: user@example.com
+              - column:
+                  name: password
+                  value: qwerty123
+              - column:
+                  name: first_name
+                  value: user
+              - column:
+                  name: last_name
+                  value: user
+  - changeSet:
+      id: assign-roles-to-users
+      author: mateacademy
+      changes:
+        - insert:
+            tableName: user_role
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: (SELECT id from users where email='admin@example.com')
+              - column:
+                  name: role_id
+                  valueComputed: (SELECT id from roles where role='ADMIN')
+        - insert:
+            tableName: user_role
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: (SELECT id from users where email='user@example.com')
+              - column:
+                  name: role_id
+                  valueComputed: (SELECT id from roles where role='USER')

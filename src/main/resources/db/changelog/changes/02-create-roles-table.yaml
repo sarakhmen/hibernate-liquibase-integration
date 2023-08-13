@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-roles-table
+      author: mateacademy
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_roles
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(256)
